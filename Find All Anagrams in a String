@@ -1,0 +1,32 @@
+SOLUTION IN C++
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+         vector<int>vec;
+        int n1=s.size();
+        int n2=p.size();
+        if(n1<n2)
+        return vec;
+        int left=0,right=0;
+    vector<int>hash1(26,0),hash2(26,0);
+    while(right<n2)
+    {
+        hash1[p[right]-'a']+=1;
+        hash2[s[right]-'a']+=1;
+        right++;
+    }
+    right--;
+    while(right<n1)
+    {
+        if(hash1==hash2)
+          vec.push_back(left);
+          right+=1;
+          if(right!=n1)
+          hash2[s[right]-'a']+=1;
+          hash2[s[left]-'a']--;
+          left++;
+    }
+    return vec;
+        
+    }
+};
