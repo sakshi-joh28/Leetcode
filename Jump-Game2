@@ -1,0 +1,23 @@
+SOLUTION IN C++
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int size=nums.size();
+        if(size==1)
+        return 0;
+        int jumps=0,currend=0,currfar=0;
+        for(int i=0;i<size-1;i++)
+        {
+            currfar=max(currfar,i+nums[i]);
+            if(currend==i )
+             {
+                 currend=currfar;
+                 jumps++;
+             }
+                if(currend>size-1)
+                return jumps;
+            
+        }
+        return jumps;
+    }
+};
