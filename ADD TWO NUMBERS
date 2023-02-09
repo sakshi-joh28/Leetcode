@@ -1,0 +1,50 @@
+SOLUTION IN C++
+class Solution {
+public:
+    
+    
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+       ListNode *head1=l2;
+         ListNode *head2=l1;
+         ListNode* dummy=new ListNode(-1);
+          ListNode*temp=dummy;
+        int sum=0;
+   int carry=0;
+        while(head1 !=NULL  || head2 !=NULL )
+        { 
+        if(head1!=NULL && head2!=NULL)
+        {
+            sum=(head1->val)+(head2->val)+carry;  
+         head1=head1->next;
+         head2=head2->next;
+        }
+            else if(head1!=NULL)
+            {
+                sum=head1->val+carry;
+                head1=head1->next;
+            }
+            else
+            {
+                sum=head2->val+carry;
+                head2=head2->next;
+            }
+         if(sum>9)
+         {
+             carry=1;
+         }
+            else
+            {
+                carry=0;
+            }
+          dummy->next=new ListNode(sum%10);
+            dummy=dummy->next;
+        
+    }
+        if(carry==1)
+        {
+              dummy->next=new ListNode(carry);
+            dummy=dummy->next;
+        }
+return (temp->next);
+    }
+};
