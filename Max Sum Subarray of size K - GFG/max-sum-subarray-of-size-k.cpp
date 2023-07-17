@@ -13,13 +13,16 @@ public:
         while(j<N)
         {
                sum +=Arr[j];
-            if (j-i+1==K)
+                if(j-i+1<K)
+                j++;
+             else if (j-i+1==K)
             {
+              
                 maxi=max(maxi,sum);
                 sum -=Arr[i];
                 i++;
+                j++;
             }
-            j++;
         }
         return maxi;
     }
