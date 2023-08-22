@@ -18,8 +18,9 @@ class Solution {
             }
             if(!visit[it])
            {
-            if(dfs(visit,adj,it,path)==true)
-            return true;
+           if( dfs(visit,adj,it,path)==true)
+           return true;
+           
         }
         }
          path[node]=0;
