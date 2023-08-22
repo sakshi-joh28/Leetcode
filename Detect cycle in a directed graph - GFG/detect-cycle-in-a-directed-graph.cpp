@@ -6,39 +6,38 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    	void bfs(vector<int>&indegree,vector<int>adj[],vector<int>&ans,int V)
-	{
-	    queue<int>q;
-	    for(int i=0;i<V;i++)
-	    if(indegree[i]==0)
-	    q.push(i);
-	    while(!q.empty())
-	    {
-	        int temp=q.front();
-	        q.pop();
-	        ans.push_back(temp);
-	        for(auto it:adj[temp])
-	        {
-	            indegree[it]--;
-	            if(indegree[it]==0)
-	            q.push(it);
-	        }
-	    }
-	}
-    bool isCyclic(int V, vector<int> adj[]) {
-          vector<int>ans;
-	    vector<int>indegree(V,0);
-	    for(int i=0;i<V;i++)
-	    {
-	        for(auto it:adj[i])
-	            indegree[it]++;
-	    }
-	    bfs(indegree,adj,ans,V);
-	    if(ans.size()<V)
-	    return 1;
-	    return 0;
-	   
+    bool dfs(vector<int>&visit,vector<int>adj[],int node,vector<int>&path)
+    {
+        visit[node]=1;
+        path[node]=1;
+        for(auto it:adj[node])
+        {
+            if(visit[it]==1 && path[it]==1)
+            {
+                return true;
+            }
+            if(!visit[it])
+           {
+            if(dfs(visit,adj,it,path)==true)
+            return true;
+        }
+        }
+         path[node]=0;
+         return false;
+        
     }
+    bool isCyclic(int V, vector<int> adj[]) {
+        vector<int>visit(V,0);
+        vector<int>path(V,0);
+        for(int i=0;i<V;i++)
+        {
+            if(!visit[i])
+           if( dfs(visit,adj,i,path)==true)
+           return true;
+        }
+    return false;
+    }
+       
 };
 
 //{ Driver Code Starts.
