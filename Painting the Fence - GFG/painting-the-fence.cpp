@@ -5,30 +5,26 @@
 using namespace std;
 
 // } Driver Code Ends
-class Solution
-{
-    int mod= 1e9+7;
+class Solution{
+    #define modi 1000000007
     public:
-    long long solve(int n ,int k ,vector<int>&dp)
+    long long solve(int n ,int k,vector<int>&dp)
     {
         if(n==1)
         return k;
         if(n==2)
-        return (k*k)%mod;
+        return (k*k)%modi;
         if(dp[n]!=-1)
-        return dp[n]%mod;
-        long long  temp1=solve(n-2,k,dp)%mod;
-        long long temp2=solve(n-1,k,dp)%mod;
-        int x=(temp1*(k-1)%mod)%mod;
-        int y=(temp2*(k-1)%mod)%mod;
-       long long  ans=(x+y)%mod;
-        dp[n]=ans;
         return dp[n];
+       long long same=((solve(n-2,k,dp)%modi)*(k-1))%modi;
+       long long diff=((solve(n-1,k,dp)%modi)*(k-1))%modi;
+       long long ans=(same+diff)%modi;
+       dp[n]= ans;
+       return dp[n];
     }
     long long countWays(int n, int k){
-        // code here
         vector<int>dp(n+1,-1);
-        return solve(n,k,dp);
+      return solve(n,k,dp);
     }
 };
 
