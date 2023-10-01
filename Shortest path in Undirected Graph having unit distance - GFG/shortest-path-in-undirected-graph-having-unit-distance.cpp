@@ -9,45 +9,38 @@ using namespace std;
 class Solution {
   public:
     vector<int> shortestPath(vector<vector<int>>& edges, int N,int M, int src){
-       int dist[N];
-       vector<int>adj[N];
-       int u,v=0;
-       for(int i=0;i<M;i++)
-       {
-            u=edges[i][0];
-            v=edges[i][1];
-           adj[u].push_back(v);
-           adj[v].push_back(u);
-       }
+        vector<int>adj[N];
+        for(int i=0;i<edges.size();i++)
+        {
+            adj[edges[i][0]].push_back(edges[i][1]);
+             adj[edges[i][1]].push_back(edges[i][0]);
+        }
+       vector<int>dist(N);
        for(int i=0;i<N;i++)
        dist[i] = 1e9;
-       dist[src] = 0;
-       queue<pair<int,int>>q;
-       q.push({src,0});
+       dist[src]=0;
+       queue<int>q;
+       q.push(src);
        while(!q.empty())
        {
-           int node=q.front().first;
-           int dis=q.front().second;
+           int node=q.front();
            q.pop();
-           for(auto it:adj[node])
+           for(auto it :adj[node])
            {
-               if(dist[it]>(dis+1))
+               if(dist[node]+1<dist[it])
                {
-               dist[it]=dis+1;
-               q.push({it,dis+1});
+               dist[it]=dist[node]+1;
+               q.push(it);
            }
-           
        }
     }
-    vector<int>ans;
     for(int i=0;i<N;i++)
     {
         if(dist[i]==1e9)
-        ans.push_back(-1);
-        else 
-        ans.push_back(dist[i]);
+        dist[i]=-1;
     }
-    return ans;
+    
+    return dist;
     }
 };
 
